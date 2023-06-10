@@ -1,0 +1,29 @@
+#!/bin/sh
+
+# Set brightness
+brightness 20000
+
+# Start sxhkd to enable hotkeys for bspwm
+sxhkd &
+
+# Create desktops
+bspc monitor -d work code ff-dev 4 5 6 7 8 9 10
+
+picom -b
+.config/polybar/launch.sh
+
+# Set rules for opening apps
+bspc rule -a 'Slack' desktop=^1
+bspc rule -a 'FirefoxWork:Navigator' desktop=^2
+bspc rule -a 'code-oss' desktop=^3
+bspc rule -a 'FirefoxDev:Navigator' desktop=^4
+bspc rule -a 'FirefoxPersonal:Navigator' desktop=^5
+bspc rule -a 'FirefoxYouTube:Navigator' desktop=^7
+
+# Launch apps
+slack &
+code &
+firefox -P "Dev" --class "FirefoxDev" &
+firefox -P "Personal" --class "FirefoxPersonal" &
+firefox -P "YouTube" --class "FirefoxYouTube" &
+firefox -P "Work" --class "FirefoxWork" &
