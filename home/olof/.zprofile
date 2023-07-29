@@ -1,21 +1,23 @@
+
 if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   # Start SSH agent
   if ! pgrep -q -u "$USER" ssh-agent; then
-    ssh-agent -s | head -2 >"${HOME}/.ssh/agent-info-${HOST}"
+  #  ssh-agent -s | head -2 >"${HOME}/.ssh/agent-info-${HOST}"
   fi
 
+
   if [[ -e "${HOME}/.ssh/agent-info-${HOST}" ]]; then
-    source "${HOME}/.ssh/agent-info-${HOST}"
+   # source "${HOME}/.ssh/agent-info-${HOST}"
   fi
 
   # Add SSH keys
   if [[ -n "$SSH_AGENT_PID" ]]; then
-    ssh-add ~/.ssh/github-osandell
+  #  ssh-add ~/.ssh/github-osandell
   fi
 
-  sudo /usr/bin/modprobe -r apple_touchbar
-  systemctl start bluetooth.service
-  systemctl start iwd.service
+  #sudo /usr/bin/modprobe -r apple_touchbar
+  #systemctl start bluetooth.service
+  #systemctl start iwd.service
 
   # The order that the system discovers the iGPU and dGPU vary from boot to boot so we
   # can't hardcode that. Instad we here find out the id of the AMD dGPU.
@@ -26,5 +28,11 @@ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   # that we have 2 moitors connected even when only internal MacBook display is used.
   sed -i "s/monitor=eDP-[1-2],disable/monitor=$monitor,disable/" ~/.config/hypr/disable-dgpu.conf
 
-  Hyprland
+  # We need to export this path before Hyperland starts so that kmonad can call kmonad-helper.
+ export PATH="$HOME/.local/bin:$PATH"
+  
+  # To get proper size cursor in certain apps like Kitty
+  export XCURSOR_THEME=Adwaita
+
+  #Hyprland
 fi
