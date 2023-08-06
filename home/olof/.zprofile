@@ -15,6 +15,9 @@ if [ -z "${DISPLAY}" ] && [ "${XDG_VTNR}" -eq 1 ]; then
   #  ssh-add ~/.ssh/github-osandell
   fi
 
+  export SSH_AUTH_SOCK=$(dirname $(find /run/user/$(id -u) -name 'ssh' -type s 2>/dev/null))/agent
+
+
   #sudo /usr/bin/modprobe -r apple_touchbar
   #systemctl start bluetooth.service
   #systemctl start iwd.service
