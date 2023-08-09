@@ -41,13 +41,16 @@ if [[ $is_external_monitor_connected == "true" ]]; then
 
   hyprctl dispatch moveworkspacetomonitor "3 $right_monitor_id" # 'dev' workspace
 
-  hyprctl dispatch movewindowpixel exact 1726 60,'^kitty$'
-  hyprctl dispatch resizewindowpixel exact 800 1100,'^kitty$'
-  hyprctl dispatch movewindowpixel exact 2546 60,'^GitKraken$'
-  hyprctl dispatch resizewindowpixel exact 1270 1100,'^GitKraken'
+  hyprctl dispatch movewindowpixel exact 1766 40,'^kitty$'
+  hyprctl dispatch resizewindowpixel exact 800 1120,'^kitty$'
+  hyprctl dispatch movewindowpixel exact 2586 40,'^GitKraken$'
+  hyprctl dispatch resizewindowpixel exact 1200 1120,'^GitKraken'
 
-  hyprctl dispatch movewindowpixel exact 1726 60,'^(.*code-url-handler.*)$'
-  hyprctl dispatch resizewindowpixel exact 2070 1100,'^(.*code-url-handler.*)$'
+  hyprctl dispatch movewindowpixel exact 1766 40,'^(.*code-url-handler.*)$'
+  hyprctl dispatch resizewindowpixel exact 2010 1120,'^(.*code-url-handler.*)$'
+
+  hyprctl dispatch movewindowpixel exact 1766 40,'^(.*slack.*)$'
+  hyprctl dispatch resizewindowpixel exact 2010 1120,'^(.*slack.*)$'
 
   hyprctl dispatch movewindowpixel exact 3839 200,'^google-chrome$'
   hyprctl dispatch resizewindowpixel exact 1200 1600,'^google-chrome'
@@ -65,8 +68,8 @@ if [[ $is_external_monitor_connected == "true" ]]; then
     # If we're processing a Firefox entry and we encounter the PID line
     if [ "$is_firefox" = true ] && echo "$line" | grep -q "pid: "; then
       pid=$(echo "$line" | awk '{print $2}')
-      hyprctl dispatch movewindowpixel exact 1726 60,"pid:$pid"
-      hyprctl dispatch resizewindowpixel exact 2070 1100,"pid:$pid"
+      hyprctl dispatch movewindowpixel exact 1766 40,"pid:$pid"
+      hyprctl dispatch resizewindowpixel exact 2010 1120,"pid:$pid"
       is_firefox=false # reset the flag for the next entry
     fi
   done
@@ -100,5 +103,5 @@ if [[ $is_external_monitor_connected == "true" ]]; then
 
   killall hyprpaper
   sleep 1
-  hyprpaper &
+  hyprpaper >/dev/null 2>&1 &
 fi
