@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Get ID of left monitor
 monitor_id=$(hyprctl monitors | awk '/S2721QS 8YTLM43/' | awk -F'[()]' '{print $2}')
@@ -16,3 +16,8 @@ monitor_id=$(hyprctl monitors | awk '/S2721QS 8BJB513/' | awk -F'[()]' '{print $
 
 # Move 'Dev' browser to right monitor
 hyprctl dispatch moveworkspacetomonitor "3 $monitor_id"
+
+hyprctl keyword monitor eDP-1,disable
+hyprctl keyword monitor eDP-2,disable
+hyprctl keyword monitor DP-8,disable
+hyprctl keyword monitor DP-8,preferred,auto,1.8,transform,3
